@@ -1,0 +1,36 @@
+<?php $auth = $this->session->get('auth'); ?>
+
+<header>
+    <h1>Hola, <?= $auth['nombre'] ?> 👋</h1>
+    <p>Rol: <mark><?= $auth['rol'] ?></mark></p>
+</header>
+
+<div class="grid">
+    <?php if ($auth['rol'] === 'ADMIN'): ?>
+        <article>
+            <h5>Resumen General</h5>
+            <ul>
+                <li>Usuarios activos: <?= Usuario::count("activo = 1") ?></li>
+                <li>Alertas de Stock: <?= Producto::count("stock_min > 0") ?></li>
+            </ul>
+            <a href="<?= $this->url->get('usuario') ?>" class="button">Gestionar Personal</a>
+        </article>
+    <?php endif; ?>
+
+    <?php if ($auth['rol'] === 'ENCARGADO' || $auth['rol'] === 'ADMIN'): ?>
+        <article>
+            <h5>Logística</h5>
+            <p>Hay asignaciones pendientes por revisar.</p>
+            <a href="<?= $this->url->get('asignacion/nuevo') ?>" class="button">Nueva Entrega</a>
+        </article>
+    <?php endif; ?>
+
+    <?php if ($auth['rol'] === 'VENDEDOR'): ?>
+        <article>
+            <h5>Mis Ventas</h5>
+            <p>Consulta tus productos asignados para empezar a vender.</p>
+            <a href="<?= $this->url->get('inventario') ?>" class="button secondary">Ver mi Stock</a>
+            <a href="<?= $this->url->get('venta/nuevo') ?>" class="button">Registrar Venta</a>
+        </article>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,43 @@
+<article>
+    <header>
+        <h2>📦 Editar Producto: <?= $producto->nombre ?></h2>
+    </header>
+
+    <form action="<?= $this->url->get('producto/guardar') ?>" method="POST">
+        <input type="hidden" name="id_producto" value="<?= $producto->id_producto ?>">
+
+        <div class="grid">
+            <label>
+                Nombre del Producto
+                <input type="text" name="nombre" value="<?= $producto->nombre ?>" required>
+            </label>
+
+            <label>
+                Código SKU
+                <input type="text" name="sku" value="<?= $producto->sku ?>" required>
+            </label>
+        </div>
+
+        <div class="grid">
+            <label>
+                Categoría
+                <select name="id_categoria">
+                    <?php foreach ($categorias as $cat): ?>
+                        <option value="<?= $cat->id_categoria ?>" <?= $producto->id_categoria == $cat->id_categoria ? 'selected' : '' ?>>
+                            <?= $cat->nombre ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Stock Mínimo (Alerta)
+                <input type="number" name="stock_min" value="<?= $producto->stock_min ?>">
+            </label>
+        </div>
+
+        <footer>
+            <button type="submit" class="contrast">Actualizar Catálogo</button>
+        </footer>
+    </form>
+</article>

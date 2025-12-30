@@ -1,0 +1,53 @@
+<article>
+    <header>
+        <h2>Registrar Nuevo Producto</h2>
+    </header>
+
+    <form action="<?= $this->url->get('producto/crear') ?>" method="POST">
+        <div class="grid">
+            <label>
+                SKU (Código único)
+                <input type="text" name="sku" placeholder="Ej: PROD-001" required>
+            </label>
+            <label>
+                Nombre del Producto
+                <input type="text" name="nombre" placeholder="Nombre comercial" required>
+            </label>
+        </div>
+
+        <label>Descripción</label>
+        <textarea name="descripcion" placeholder="Detalles del producto..."></textarea>
+
+        <div class="grid">
+            <label>
+                Categoría
+                <select name="id_categoria" required>
+                    <option value="">Seleccione...</option>
+                    <?php foreach ($categorias as $cat): ?>
+                        <option value="<?= $cat->id_categoria ?>"><?= $cat->nombre ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Proveedor
+                <select name="id_proveedor" required>
+                    <option value="">Seleccione...</option>
+                    <?php foreach ($proveedores as $prov): ?>
+                        <option value="<?= $prov->id_proveedor ?>"><?= $prov->razon_social ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Stock Mínimo
+                <input type="number" name="stock_min" value="0">
+            </label>
+        </div>
+
+        <footer style="text-align: right;">
+            <a href="<?= $this->url->get('producto') ?>" class="secondary">Cancelar</a>
+            <button type="submit">Guardar Producto</button>
+        </footer>
+    </form>
+</article>

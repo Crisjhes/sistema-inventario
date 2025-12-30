@@ -1,0 +1,43 @@
+<article>
+    <header>
+        <h2>👤 Registrar Nuevo Usuario</h2>
+        <p>Complete los datos para dar de alta a un miembro del equipo.</p>
+    </header>
+
+    <form action="<?= $this->url->get('usuario/crear') ?>" method="POST">
+        <div class="grid">
+            <label>
+                Nombre Completo
+                <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
+            </label>
+
+            <label>
+                Correo Electrónico
+                <input type="email" name="email" placeholder="juan@empresa.com" required>
+            </label>
+        </div>
+
+        <div class="grid">
+            <label>
+                Contraseña Temporal
+                <input type="password" name="password" placeholder="••••••••" required>
+                <small>Mínimo 8 caracteres sugerido.</small>
+            </label>
+
+            <label>
+                Rol en el Sistema
+                <select name="rol" required>
+                    <option value="" disabled selected>Seleccione un rol...</option>
+                    <option value="ADMIN">Administrador (Control total)</option>
+                    <option value="ENCARGADO">Encargado (Gestión de stock)</option>
+                    <option value="VENDEDOR">Vendedor (Pre-venta)</option>
+                </select>
+            </label>
+        </div>
+
+        <footer style="text-align: right; margin-top: 20px;">
+            <a href="<?= $this->url->get('usuario') ?>" class="secondary">Cancelar</a>
+            <button type="submit">Crear Usuario</button>
+        </footer>
+    </form>
+</article>

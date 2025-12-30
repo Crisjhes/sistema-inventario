@@ -1,0 +1,42 @@
+<article>
+    <header>
+        <h2>✏️ Editar Usuario: <?= $usuario->nombre ?></h2>
+    </header>
+
+    <form action="<?= $this->url->get('usuario/guardar') ?>" method="POST">
+        <input type="hidden" name="id_usuario" value="<?= $usuario->id_usuario ?>">
+
+        <div class="grid">
+            <label>
+                Nombre Completo
+                <input type="text" name="nombre" value="<?= $usuario->nombre ?>" required>
+            </label>
+
+            <label>
+                Correo Electrónico
+                <input type="email" name="email" value="<?= $usuario->email ?>" required>
+            </label>
+        </div>
+
+        <div class="grid">
+            <label>
+                Rol del Sistema
+                <select name="rol">
+                    <option value="ADMIN" <?= $usuario->rol == 'ADMIN' ? 'selected' : '' ?>>Administrador</option>
+                    <option value="ENCARGADO" <?= $usuario->rol == 'ENCARGADO' ? 'selected' : '' ?>>Encargado de Almacén</option>
+                    <option value="VENDEDOR" <?= $usuario->rol == 'VENDEDOR' ? 'selected' : '' ?>>Vendedor</option>
+                </select>
+            </label>
+
+            <label>
+                Nueva Contraseña (dejar en blanco para no cambiar)
+                <input type="password" name="password" placeholder="••••••••">
+            </label>
+        </div>
+
+        <footer style="text-align: right;">
+            <a href="<?= $this->url->get('usuario') ?>" class="secondary outline">Cancelar</a>
+            <button type="submit">Guardar Cambios</button>
+        </footer>
+    </form>
+</article>

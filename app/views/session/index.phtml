@@ -1,0 +1,22 @@
+<main class="container" style="max-width: 400px; padding-top: 50px;">
+    <article>
+        <header style="text-align: center;">
+            <strong>🔐 Acceso al Sistema</strong>
+            <p>Inventario Paulita DB</p>
+        </header>
+
+        <form action="<?= $this->url->get('session/start') ?>" method="POST">
+            <label>
+                Correo Electrónico
+                <input type="email" name="email" placeholder="usuario@dominio.com" required>
+            </label>
+
+            <label>
+                Contraseña
+                <input type="password" name="password" placeholder="••••••••" required>
+            </label>
+
+            <button type="submit" class="contrast">Entrar</button>
+        </form>
+    </article>
+</main>

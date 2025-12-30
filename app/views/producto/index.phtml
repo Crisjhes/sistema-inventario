@@ -1,0 +1,65 @@
+<div class="grid">
+    <div>
+        <h1>📦 Catálogo de Productos</h1>
+        <p>Gestión de inventario y stock mínimo.</p>
+    </div>
+    <div style="text-align: right;">
+        <a href="<?= $this->url->get('producto/nuevo') ?>" class="button">
+            + Agregar Producto
+        </a>
+    </div>
+</div>
+
+<figure>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th scope="col">SKU</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Alertas</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($productos as $p): ?>
+            <tr>
+                <td><strong><?= $p->sku ?></strong></td>
+                <td><?= $p->nombre ?></td>
+                <td>
+                    <mark><?= $p->categoria ? $p->categoria->nombre : 'Sin categoría' ?></mark>
+                </td>
+                <td><?= $p->proveedor ? $p->proveedor->razon_social : 'N/A' ?></td>
+                <td>
+                    <small>Mínimo: <?= $p->stock_min ?></small>
+                </td>
+                <td>
+                    <?php if ($p->activo): ?>
+                        <small style="color: green;">● Activo</small>
+                    <?php else: ?>
+                        <small style="color: red;">● Inactivo</small>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="<?= $this->url->get('producto/editar/' . $p->id_producto) ?>" 
+                           title="Editar">✏️ Editar</a>
+
+                        <a href="<?= $this->url->get('producto/eliminar/' . $p->id_producto) ?>" 
+                           style="color: #c0392b;"
+                           onclick="return confirm('¿Estás seguro de eliminar este producto?')">🗑️ Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</figure>
+
+<?php if (count($productos) == 0): ?>
+    <div class="container" style="text-align: center; padding: 50px;">
+        <p>No hay productos registrados aún. ¡Comienza agregando uno!</p>
+    </div>
+<?php endif; ?>

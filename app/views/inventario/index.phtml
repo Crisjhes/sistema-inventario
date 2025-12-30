@@ -1,0 +1,48 @@
+<div class="container">
+    <h1>📊 Inventario en Posesión</h1>
+    <p>Consulta cuánto material tiene asignado cada vendedor actualmente.</p>
+
+    <?php foreach ($vendedores as $vendedor): ?>
+        <article>
+            <header>
+                <strong>👤 Vendedor: <?= $vendedor->nombre ?></strong>
+            </header>
+            
+            <table role="grid">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>SKU</th>
+                        <th style="text-align: center;">Total Asignado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $totalGeneral = 0;
+                    // Buscamos las asignaciones de este vendedor específico
+                    $asignaciones = Asignacion::find("id_vendedor = {$vendedor->id_usuario}");
+                    
+                    foreach ($asignaciones as $asig): 
+                        foreach ($asig->detalles as $det): 
+                            $totalGeneral += $det->cantidad;
+                    ?>
+                    <tr>
+                        <td><?= $det->producto->nombre ?></td>
+                        <td><code><?= $det->producto->sku ?></code></td>
+                        <td style="text-align: center;"><?= $det->cantidad ?></td>
+                    </tr>
+                    <?php 
+                        endforeach; 
+                    endforeach; 
+                    ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: right;"><strong>Total de Unidades:</strong></td>
+                        <td style="text-align: center;"><strong><?= $totalGeneral ?></strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </article>
+    <?php endforeach; ?>
+</div>

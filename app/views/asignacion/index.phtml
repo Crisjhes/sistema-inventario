@@ -1,0 +1,37 @@
+<div class="grid">
+    <h1>📋 Historial de Asignaciones</h1>
+    <div style="text-align: right;">
+        <a href="<?= $this->url->get('asignacion/nuevo') ?>" class="button">+ Nueva Asignación</a>
+    </div>
+</div>
+
+<figure>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Vendedor</th>
+                <th>Productos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($asignaciones as $asig): ?>
+            <tr>
+                <td><?= date('d/m/Y', strtotime($asig->fecha)) ?></td>
+                <td>
+                    <strong><?= $asig->vendedor->nombre ?></strong>
+                </td>
+                <td>
+                    <?php foreach ($asig->detalles as $det): ?>
+                        <li><?= $det->producto->nombre ?> (Cant: <?= $det->cantidad ?>)</li>
+                    <?php endforeach; ?>
+                </td>
+                <td>
+                    <a href="#" role="button" class="outline">Ver Recibo</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</figure>

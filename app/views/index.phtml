@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paulita - Inventario</title>
+
+    <!-- Temas pre-hechos (colores) AZULADO-->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">-->
+    
+    <!-- Temas pre-hechos (colores) AMARILLO-->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.amber.min.css">-->
+
+    <!-- Temas pre-hechos (colores) LILA-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.indigo.min.css">
+    
+    
+</head>
+<body>
+    <?= $this->flash->output() ?>
+<nav class="container-fluid">
+  <ul>
+    <li><strong>🚀 Paulita Inventario</strong></li>
+  </ul>
+  <ul>
+    <?php if ($this->session->has('auth')): ?>
+        
+        <?php 
+            $auth = $this->session->get('auth'); 
+            $rol = $auth['rol'];
+        ?>
+
+        <li><a href="<?= $this->url->get('index') ?>">Inicio</a></li>
+        <li><a href="<?= $this->url->get('inventario') ?>">Mi Stock</a></li>
+
+        <?php if ($rol === 'ADMIN' || $rol === 'ENCARGADO'): ?>
+            <li><a href="<?= $this->url->get('producto') ?>">Productos</a></li>
+            <li><a href="<?= $this->url->get('asignacion') ?>">Asignaciones</a></li>
+        <?php endif; ?>
+
+        <?php if ($rol === 'ADMIN'): ?>
+            <li><a href="<?= $this->url->get('usuario') ?>">Usuarios</a></li>
+        <?php endif; ?>
+
+        <li>
+            <details role="list" dir="rtl">
+              <summary aria-haspopup="listbox" class="contrast">
+                <?= $auth['nombre'] ?>
+              </summary>
+              <ul role="listbox">
+                <li><a href="<?= $this->url->get('session/end') ?>">Cerrar Sesión</a></li>
+              </ul>
+            </details>
+        </li>
+
+    <?php else: ?>
+        <li><a href="<?= $this->url->get('session') ?>" class="outline">Iniciar Sesión</a></li>
+    <?php endif; ?>
+  </ul>
+</nav>
+
+<main class="container">
+    <?= $this->getContent() ?>
+</main>
+
+    <footer class="container">
+        <small>© 2025 Paulita - Sistema de Pre-venta</small>
+    </footer>
+</body>
+</html>

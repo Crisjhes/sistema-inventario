@@ -1,0 +1,37 @@
+<div class="grid">
+    <h1>👥 Gestión de Usuarios</h1>
+    <div style="text-align: right;">
+        <a href="<?= $this->url->get('usuario/nuevo') ?>" class="button">+ Nuevo Usuario</a>
+    </div>
+</div>
+
+<figure>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($usuarios as $u): ?>
+            <tr>
+                <td><?= $u->nombre ?></td>
+                <td><?= $u->email ?></td>
+                <td>
+                    <span class="badge"><?= $u->rol ?></span>
+                </td>
+                <td><?= $u->activo ? '✅' : '❌' ?></td>
+                <td>
+                    <a href="<?= $this->url->get('usuario/editar/' . $u->id_usuario) ?>">Editar</a> | 
+                    <a href="<?= $this->url->get('usuario/eliminar/' . $u->id_usuario) ?>" 
+                    onclick="return confirm('¿Desactivar este usuario?')">Eliminar</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</figure>

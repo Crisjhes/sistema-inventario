@@ -1,0 +1,48 @@
+<article>
+    <header>
+        <h2>📦 Nueva Asignación de Stock</h2>
+    </header>
+
+    <form action="<?= $this->url->get('asignacion/crear') ?>" method="POST">
+        <div class="grid">
+            <label>
+                Vendedor Destino
+                <select name="id_vendedor" required>
+                    <option value="">Seleccione al vendedor...</option>
+                    <?php foreach ($vendedores as $v): ?>
+                        <option value="<?= $v->id_usuario ?>"><?= $v->nombre ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Fecha de Entrega
+                <input type="date" name="fecha" value="<?= date('Y-m-d') ?>" required>
+            </label>
+        </div>
+
+        <hr>
+        <h5>Productos a Entregar</h5>
+        
+        <div class="grid">
+            <label>
+                Producto
+                <select name="id_producto" required>
+                    <option value="">Seleccione producto...</option>
+                    <?php foreach ($productos as $p): ?>
+                        <option value="<?= $p->id_producto ?>"><?= $p->nombre ?> (<?= $p->sku ?>)</option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+
+            <label>
+                Cantidad
+                <input type="number" name="cantidad" min="1" value="1" required>
+            </label>
+        </div>
+
+        <footer style="text-align: right;">
+            <button type="submit">Finalizar Asignación</button>
+        </footer>
+    </form>
+</article>
